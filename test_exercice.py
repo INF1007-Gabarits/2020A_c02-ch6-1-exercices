@@ -9,96 +9,75 @@ import exercice
 
 
 class TestExercice(unittest.TestCase):
-	def test_get_num_letters(self):
+	def test_get_maximums(self):
 		values = [
-			"aaa",
-			"AAA",
-			"aA0",
-			"aA-",
-			"aA ",
-			"àAé"
+			[[1,2,3], [6,5,4], [10,11,12], [8,9,7]]
 		]
 		expected = [
-			3,
-			3,
-			3,
-			2,
-			2,
-			3
+			[3, 6, 12, 9]
 		]
-		output = [exercice.get_num_letters(v) for v in values]
+		output = [exercice.get_maximums(v) for v in values]
 		self.assertEqual(
 			expected,
 			output,
-			"Mauvais compte de lettres"
+			"Mauvais compte de maximums."
 		)
 
-	def test_get_word_length_histogram(self):
+	def test_join_integers(self):
 		values = [
-			"a aa-aa \t aa9  "
+			[111, 222, 333],
+			[69, 420]
 		]
 		expected = [
-			[0, 1, 0, 1, 1]
+			111222333,
+			69420,
 		]
-		output = [exercice.get_word_length_histogram(v) for v in values]
+		output = [exercice.join_integers(v) for v in values]
+
+		self.assertIs(
+			type(output[0]),
+			int,
+			"Il faut retourner des int"
+		)
+		self.assertListEqual(
+			output,
+			expected,
+			"Mauvaise concaténation"
+		)
+
+	def test_generate_prime_numbers(self):
+		values = [
+			2,
+			17,
+		]
+		expected = [
+			[2],
+			[2, 3, 5, 7, 11, 13, 17]
+		]
+		output = [exercice.generate_prime_numbers(v) for v in values]
 
 		self.assertListEqual(
 			output,
 			expected,
-			"Mauvais histogramme"
+			"Mauvaise génération de nombres premiers"
 		)
 
-	def test_format_histogram(self):
+	def test_combine_strings_and_numbers(self):
 		values = [
-			"Stop right there criminal scum! shouted the guard confidently."
+			(["A", "B"], 2, None),
+			(["A", "B"], 5, 2)
 		]
 		expected = [
-			" 1 "    "\n" \
-			" 2 "    "\n" \
-			" 3 *"   "\n" \
-			" 4 **"  "\n" \
-			" 5 ***" "\n" \
-			" 6 "    "\n" \
-			" 7 *"   "\n" \
-			" 8 *"   "\n" \
-			" 9 "    "\n" \
-			"10 "    "\n" \
-			"11 *"   "\n"
+			['A1', 'B1', 'A2', 'B2'],
+			['A1', 'B1', 'A3', 'B3', 'A5', 'B5']
 		]
-		output = [exercice.format_histogram(exercice.get_word_length_histogram(v)).strip("\n") for v in values]
+		output = [exercice.combine_strings_and_numbers(*v) for v in values]
 
-		for out, exp in zip(output, expected):
-			self.is_same_formatting(out, exp)
-
-	def test_format_horizontal_histogram(self):
-		values = [
-			"Stop right there criminal scum! shouted the guard confidently."
-		]
-		expected = [
-			"    |       " "\n" \
-			"   ||       " "\n" \
-			"  ||| ||  | " "\n" \
-			"¯¯¯¯¯¯¯¯¯¯¯¯" "\n" \
-		]
-		output = [exercice.format_horizontal_histogram(exercice.get_word_length_histogram(v)).strip("\n") for v in values]
-
-		for out, exp in zip(output, expected):
-			self.is_same_formatting(out, exp)
-
-	def is_same_formatting(self, v1, v2):
-		v1_lines = v1.strip("\n").split("\n")
-		v2_lines = v2.strip("\n").split("\n")
-		self.assertEqual(
-			len(v1_lines),
-			len(v2_lines),
-			"Pas même nombre de lignes"
+		self.assertListEqual(
+			output,
+			expected,
+			"Mauvaise génération de nombres premiers"
 		)
-		for l1, l2 in zip(v1_lines, v2_lines):
-			self.assertEqual(
-				l1.rstrip(),
-				l2.rstrip(),
-				"Ligne pas pareille"
-			)
 
 
 if __name__ == '__main__':

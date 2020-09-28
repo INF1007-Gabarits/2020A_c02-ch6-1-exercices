@@ -1,89 +1,76 @@
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod-redirect-0.herokuapp.com/)
 
-# Histogrammes de longueur de mots (chapitre 5.2)
+# Exercices en vrac (chapitre 6.1)
 
 Avant de commencer. Consulter les instructions à suivre dans [instructions.md](instructions.md)
 
 À moins d'indications contraires, vous devez retourner les résultats des fonctions, pas les afficher directement.
 
-## 1. Nombre de lettres d'un mot
-### `get_num_letters`
+## 1. Maximums d'une liste de listes
+### `get_maximums`
 
-Compter le nombre de caractères alphanumériques d'une string. Vous ne devez pas compter la ponctuation comme étant une lettre du mot. Donc si un mot contient des caractères de ponctuation (trait d’union, apostrophe, point, virgule, etc.), vous devez y soustraire ceux-ci dans le nombre de lettres du mot. Par exemple, le mot «est?» contient trois lettres et le mot «[reus]» en contient quatre. Utilisez `isalnum` pour déterminer si un caractère est alphanumérique ou non.
+Write a Python program to find the list in a list of lists whose sum of elements is the highest. Générez la liste des maximums d'une liste de listes de nombres. On veut donc le maximum de chacune des listes.
 
-## 2. Histogramme de longueurs de mots
-### `get_word_length_histogram`
-
-Construire un histogramme du nombre de lettres des mots d'un texte. Vous devez retourner une liste où l'élément à un index donné est le nombre de mots ayant un nombre de lettres égal à cet index. Par exemple, l'histogramme `[0, 3, 0, 2]` représente un texte qui a trois mots d'une lettre, aucun mots de deux lettres et deux mots de trois lettres. Le premier élément de la liste (le compte de mots à zéro lettre) devrait toujours être égal à 0.
-
-Par exemple :
+Exemple :
 ```python
-spam = "Stop right there criminal scum! shouted the guard confidently."
-eggs = get_word_length_histogram(spam)
-print(eggs)
+print(get_maximums([[1,2,3], [6,5,4], [10,11,12], [8,9,7]]))
 ```
-donne la sortie
+Résultat :
 ```
-[0, 0, 0, 1, 2, 3, 0, 1, 1, 0, 0, 1]
+[2, 3, 5, 7, 11, 13]
 ```
+## 2. Concaténation de nombres
+### `join_integers`
 
-## 3. Formatage d'un histogramme
-### `format_histogram`
+Concaténez une liste d'entiers en un seul nombre. Le type retourné doit être un entier, pas une string, et la fonction doit être faite en une seule expression (une seule ligne qui est le `return`). Vous pouvez faire des conversions de string/entiers.
 
-Construire une version affichable de l'histogramme où chaque élément de l'histogramme (sauf le premier élément nul) est représenté par le nombre d'occurrences de la longueur suivie d'une rangée d'étoiles de cette longueur.
-
-Par exemple, si on reprend l'histogramme précédent :
+Exemple :
 ```python
-spam = format_histogram([0, 0, 0, 1, 2, 3, 0, 1, 1, 0, 0, 1])
-print(spam)
+print(join_integers([111, 222, 333]))
+print(join_integers([69, 420]))
 ```
-On obtient :
+Résultat :
 ```
- 1
- 2
- 3 *
- 4 **
- 5 ***
- 6
- 7 *
- 8 *
- 9
-10
-11 *
+111222333
+69420
 ```
 
-Remarquez qu'on ignore la rangée 0 (qui est toujours égale à 0 et ne représente rien) et que le numéro de la rangée est aligné à droite sur exactement le bon nombre de caractères.
+## 3. Crible d'Ératosthène
+### `generate_prime_numbers`
 
-## 4. Histogramme à colonnes verticales
-### `format_horizontal_histogram`
+Générez la liste des nombres premiers jusqu'à un certain nombre en suivant le crible d'Ératosthène (https://fr.wikipedia.org/wiki/Crible_d%27%C3%89ratosth%C3%A8ne). Voici l'agorithme en pseudo-code :
+```
+FONCTION Eratosthène(limite)
+    premiers = liste vide
+    nombres = liste des entiers de 2 à limite
+    TANT QUE nombres est non vide FAIRE
+        Ajouter à premiers le premier entier de nombres
+        nombres = liste des entiers de nombres non multiples du premier
+    RÉSULTAT premiers
+```
 
-Afficher l'histogramme, mais avec des colonnes verticales (faites avec le caractère `BLOCK_CHAR`) et sans mettre les numéros de colonnes. Il faut aussi mettre une ligne en bas de l'histogramme (caractère `LINE_CHAR`) représentant l'axe et exactement de la même longueur que la largeur de l'histogramme.
+## 4. Combinaisons de strings et de nombres
+### `combine_strings_and_numbers`
 
-En réutilisant encore le même histogramme :
+Générez une liste en concaténant les éléments d'une liste de string (1er param) et les nombres de 1 à n (2e param). Vous devez exclure les multiples d'un certain nombre (3e param). Si ce troisième paramètre est `None`, alors on n'exclut rien.
+
+Exemple:
 ```python
-spam = format_horizontal_histogram([0, 0, 0, 1, 2, 3, 0, 1, 1, 0, 0, 1])
-print(spam)
+print(combine_strings_and_numbers(["A", "B"], 2, None))
+print(combine_strings_and_numbers(["A", "B"], 5, 2))
 ```
-On obtient :
+Résultat :
 ```
-    |
-   ||
-  ||| ||  |
-¯¯¯¯¯¯¯¯¯¯¯¯
+['A1', 'B1', 'A2', 'B2']
+['A1', 'B1', 'A3', 'B3', 'A5', 'B5']
 ```
+
+Notez que dans le deuxième exemple la valeur 5 est incluse et que les multiples de 2 (2 et 4) sont exclus. Notez aussi l'ordre A1 B1 puis A2 B2. On génère toutes les combinaisons pour un nombre avant de passé au prochain. On ne veut pas A1 A2 puis B1 B2.
 
 ## Conseils et ressources
 
 `len()` : https://docs.python.org/3/library/functions.html?highlight=len#len
 
-`str.isalpha()` : https://docs.python.org/3/library/stdtypes.html?highlight=isalpha#str.isalpha
-
-`str.split()` : https://docs.python.org/3/library/stdtypes.html?highlight=split#str.split
-
 `str.join()` : https://docs.python.org/3/library/stdtypes.html?highlight=join#str.join
 
 `max()` : https://docs.python.org/3/library/functions.html?highlight=max#max
-
-Spécifications des string formatées : https://docs.python.org/3/library/string.html#formatspec
-
-Table des caractères d'échappement : https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals

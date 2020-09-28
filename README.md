@@ -22,7 +22,7 @@ Résultat :
 ## 2. Concaténation de nombres
 ### `join_integers`
 
-Concaténez une liste d'entiers en un seul nombre. Le type retourné doit être un entier, pas une string, et la fonction doit être faite en une seule expression (une seule ligne qui est le `return`). Vous pouvez faire des conversions de string/entiers.
+Concaténez une liste d'entiers naturels en un seul nombre. Le type retourné doit être un entier, pas une string, et la fonction doit être faite en une seule expression (une seule ligne qui est le `return`). Vous pouvez faire des conversions de string/entiers.
 
 Exemple :
 ```python
@@ -48,6 +48,17 @@ FONCTION Eratosthène(limite)
         nombres = liste des entiers de nombres non multiples du premier
     RÉSULTAT premiers
 ```
+
+Exemple :
+```python
+print(generate_prime_numbers(17))
+```
+Résultat :
+```
+[2, 3, 5, 7, 11, 13, 17]
+```
+
+Notez que la borne supérieure (si elle première) est incluse dans le résultat.
 
 ## 4. Combinaisons de strings et de nombres
 ### `combine_strings_and_numbers`
